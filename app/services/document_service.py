@@ -1,69 +1,73 @@
+import logging
+from app.models import Document
 import chromadb
 from chromadb.utils import embedding_functions
-from app.models import Document
-from app.config import Config
-import logging
 
-# Initialize ChromaDB client
-client = chromadb.Client()
+# Initialize Chroma client
+chroma_client = chromadb.PersistentClient(path="./chroma_db")
 
-# Create a collection for documents
-collection = client.create_collection("documents")
+# Create embedding function
+st_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+    model_name="all-MiniLM-L12-v2"
+)
 
-# Use BERT embedding function
-embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="bert-base-uncased")
+# Get or create the collection with the embedding function
+collection = chroma_client.get_or_create_collection(
+    "documents",
+    embedding_function=st_ef
+)
 
 def add_document(text, url):
-    doc_id = Document.insert({'text': text, 'url': url})
-    logging.info(f"Added document to MongoDB with ID: {doc_id}")
+    # Insert document into MongoDB
+    doc_id = str(Document.insert({
+        'text': text,
+        'url': url,
+    }))
     
-    # Add to ChromaDB collection
+    # Add to ChromaDB
     collection.add(
         documents=[text],
         metadatas=[{"url": url}],
-        ids=[str(doc_id)]
+        ids=[doc_id]
     )
-    logging.info(f"Added document to ChromaDB with ID: {doc_id}")
     
+    logging.info(f"Added document to MongoDB and ChromaDB with ID: {doc_id}")
+    logging.debug(f"Document content: {text[:100]}...")  # Log first 100 characters
     return doc_id
 
 def search_documents(query, top_k=5):
-    # Search in ChromaDB collection
-    results = collection.query(
-        query_texts=[query],
-        n_results=top_k
-    )
-    
-    formatted_results = []
-    for i, (doc_id, distance) in enumerate(zip(results['ids'][0], results['distances'][0])):
-        doc = Document.find_one({'_id': doc_id})
-        if doc:
+    try:
+        results = collection.query(
+            query_texts=[query],
+            n_results=top_k
+        )
+        
+        formatted_results = []
+        for i, doc_id in enumerate(results['ids'][0]):
             formatted_results.append({
                 '_id': doc_id,
-                'text': doc['text'],
-                'url': doc['url'],
-                'similarity': 1 - distance  # Convert distance to similarity
+                'text': results['documents'][0][i],
+                'url': results['metadatas'][0][i]['url'],
+                'similarity': 1 - results['distances'][0][i]  # Convert distance to similarity
             })
-    
-    return formatted_results
+        
+        return formatted_results
+    except Exception as e:
+        logging.error(f"Error in search_documents: {str(e)}")
+        raise
 
-# Function to load existing documents into ChromaDB
-def load_documents_to_chroma():
-    documents = Document.find({})
-    texts = []
-    metadatas = []
-    ids = []
-    for doc in documents:
-        texts.append(doc['text'])
-        metadatas.append({"url": doc['url']})
-        ids.append(str(doc['_id']))
+def sync_mongodb_chromadb():
+    mongo_docs = Document.find({})
+    chroma_ids = set(collection.get()['ids'])
     
-    if texts:
-        collection.add(
-            documents=texts,
-            metadatas=metadatas,
-            ids=ids
-        )
+    for doc in mongo_docs:
+        if str(doc['_id']) not in chroma_ids:
+            collection.add(
+                documents=[doc['text']],
+                metadatas=[{"url": doc['url']}],
+                ids=[str(doc['_id'])]
+            )
+            logging.info(f"Synced document {doc['_id']} to ChromaDB")
 
 # Call this function when initializing the application
-load_documents_to_chroma()
+sync_mongodb_chromadb()

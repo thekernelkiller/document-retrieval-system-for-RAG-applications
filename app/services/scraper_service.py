@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 from app.config import Config
 from app.services.document_service import add_document
 from app.models import Document
@@ -18,7 +17,7 @@ def scrape_news_articles():
             full_text = f"{title}\n{description}\n{content}"
             url = article.get('url', '')
             
-            # Check if the article already exists
+            # Check if the article already exists in MongoDB
             if not Document.find_one({'text': full_text}):
                 doc_id = add_document(full_text, url)
                 logging.info(f"Added new article with ID: {doc_id}")
