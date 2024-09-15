@@ -1,7 +1,9 @@
 from app.services.document_service import collection
 import logging
+from app.services.cache_service import get_cached_results, set_cached_results
 from chromadb.utils import embedding_functions
 import re
+import logging
 
 # Initialize the embedding function (move this to the top of your file)
 ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L12-v2")
@@ -10,6 +12,12 @@ def search_documents(query, top_k=5, threshold=0.5):
     try:
         logging.info(f"Searching for query: '{query}' with top_k={top_k} and threshold={threshold}")
         
+        # Check cache first
+        cached_results = get_cached_results(query, top_k, threshold)
+        if cached_results:
+            logging.info("Returning cached results")
+            return cached_results
+
         all_docs = collection.get()
         logging.info(f"Total documents in collection: {len(all_docs['ids'])}")
         
@@ -59,6 +67,10 @@ def search_documents(query, top_k=5, threshold=0.5):
                     })
 
         logging.info(f"Filtered results: {filtered_results}")
+
+        # Cache the results
+        set_cached_results(query, top_k, threshold, filtered_results)
+
         return filtered_results
     except Exception as e:
         logging.error(f"Error in search_documents: {str(e)}")

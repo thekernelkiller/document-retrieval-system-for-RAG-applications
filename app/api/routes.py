@@ -3,6 +3,7 @@ from app.services.search_service import search_documents
 from app.models import User
 import time, logging
 from app.services.document_service import collection
+from app.services.cache_service import get_cached_results
 
 api_bp = Blueprint('api', __name__)
 
@@ -28,6 +29,9 @@ def search():
         if user['request_count'] > 5:
             return jsonify({"error": "Rate limit exceeded"}), 429
 
+        # Check if results are cached
+        cached = get_cached_results(text, top_k, threshold) is not None
+
         results = search_documents(text, top_k, threshold)
         
         logging.info(f"Search results for query '{text}': {results}")
@@ -39,7 +43,8 @@ def search():
             "query_length": len(text.split()),
             "top_k": top_k,
             "threshold": threshold,
-            "results_count": len(results)
+            "results_count": len(results),
+            "cached": cached
         }
         
         return jsonify({
