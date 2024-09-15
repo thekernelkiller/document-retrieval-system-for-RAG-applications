@@ -8,7 +8,8 @@ This is a Retrieval Augmented Generation (RAG)-like document retrieval system fo
 
 ### Project Architecture
 
-<img width="961" alt="Screenshot 2024-09-15 at 18 30 33" src="https://github.com/user-attachments/assets/21474e13-dffb-487b-aee9-a2a5c5511fd7">
+<img width="961" alt="Screenshot 2024-09-15 at 18 30 33" src="https://github.com/user-attachments/assets/30bcdcc4-7bfb-48c6-975d-03c62e5700a5">
+
 
 ### Features & Though Process
 
