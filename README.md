@@ -55,17 +55,17 @@ and returns the following results:
 }
 ```
 
-3. `apscheduler` process ==runs in the background== and starts immediately when the application starts. It uses the `NEWS_API` key and periodically ==scrapes== news articles and adds to a `mongodb` collection.
+3. `apscheduler` process runs in the background and starts immediately when the application starts. It uses the `NEWS_API` key and periodically scrapes news articles and adds to a `mongodb` collection.
 
-4. Using `sentence-transformer` encoding model and `chromadb`, a vector index is created from the documents. Both mongodb and the chromadb are in ==sync== to ensure there are no inconsistencies. 
+4. Using `sentence-transformer` encoding model and `chromadb`, a vector index is created from the documents. Both mongodb and the chromadb are in sync to ensure there are no inconsistencies. 
 
-5. I have a `redis` in-memory database to c==ache frequent requests==. This is to enable faster retrievals. 
+5. I have a `redis` in-memory database to cache frequent requests. This is to enable faster retrievals. 
 
-6. I've implemented ==hybrid search== in `search_service` to enable search for words, as I observed that by regular similarity search methods, I had to type an entire sentence to get grounded results from the chatbot. 
+6. I've implemented hybrid search in `search_service` to enable search for words, as I observed that by regular similarity search methods, I had to type an entire sentence to get grounded results from the chatbot. 
 
-7. `rate limiting` is enabled at user-level and refreshes every ==1 hour==. 
+7. `rate limiting` is enabled at user-level and refreshes every 1 hour. 
 
-8. `re-ranking` is implemented using ==BM25== algorithm to improve search indexing. 
+8. `re-ranking` is implemented using BM25 algorithm to improve search indexing. 
 
 9. the application is dockerisable with separate containers for `backend` and `streamlit` layers. 
 
