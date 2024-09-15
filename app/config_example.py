@@ -5,8 +5,9 @@ class Config:
     REDIS_HOST = " "
     REDIS_PORT = 19867
     REDIS_PASSWORD = " "
-    NEWS_API_KEY = " "
     CACHE_EXPIRATION = 3600
+    NEWS_API_KEY = " "
+    GROQ_API_KEY= ""
 
     @staticmethod
     def get_redis_client():
