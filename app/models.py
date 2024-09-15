@@ -26,25 +26,15 @@ class Document:
     def create_search_index():
         try:
             Document.collection.create_index([
-                ("embedding", "vectorSearch")  # This may not be needed if embeddings are only in ChromaDB
+                ("embedding", "vectorSearch")
             ], {
                 "name": "vector_index",
-                "numDimensions": 384  # Adjust this based on your chosen model
+                "numDimensions": 384
             })
             logging.info("Vector search index created successfully")
         except Exception as e:
             logging.error(f"Error creating vector search index: {str(e)}")
 
-# def normalize_embedding(embedding, target_dim=768):
-#     current_dim = len(embedding)
-    
-#     if current_dim < target_dim:
-#         # Pad with zeros
-#         return embedding + [0] * (target_dim - current_dim)
-#     elif current_dim > target_dim:
-#         # Truncate
-#         return embedding[:target_dim]
-#     return embedding 
 
 class User:
     collection = db.users
