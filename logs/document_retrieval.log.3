@@ -1,0 +1,77 @@
+2024-09-14 10:20:13,804 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:20:19,376 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:41:06,001 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:43:30,823 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:43:52,978 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:44:19,014 INFO: Health check endpoint accessed [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:10]
+2024-09-14 10:44:31,760 ERROR: An error occurred during search: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'. [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:51]
+2024-09-14 10:46:11,793 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:46:38,668 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:47:00,561 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 10:47:08,828 ERROR: An error occurred during search: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'. [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:51]
+Traceback (most recent call last):
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py", line 16, in search
+    data = request.json
+           ^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 557, in json
+    return self.get_json()
+           ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 601, in get_json
+    return self.on_json_loading_failed(None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/flask/wrappers.py", line 131, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 644, in on_json_loading_failed
+    raise UnsupportedMediaType(
+werkzeug.exceptions.UnsupportedMediaType: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2024-09-14 10:47:14,577 ERROR: An error occurred during search: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'. [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:51]
+Traceback (most recent call last):
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py", line 16, in search
+    data = request.json
+           ^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 557, in json
+    return self.get_json()
+           ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 601, in get_json
+    return self.on_json_loading_failed(None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/flask/wrappers.py", line 131, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/werkzeug/wrappers/request.py", line 644, in on_json_loading_failed
+    raise UnsupportedMediaType(
+werkzeug.exceptions.UnsupportedMediaType: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2024-09-14 10:47:24,285 INFO: Search request received for user test_user_1 [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:27]
+2024-09-14 10:47:24,435 ERROR: An error occurred during search: add_document() missing 1 required positional argument: 'url' [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:51]
+Traceback (most recent call last):
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py", line 37, in search
+    results = search_documents(query, top_k, threshold)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/services/search_service.py", line 10, in search_documents
+    query_vector = add_document(query)
+                   ^^^^^^^^^^^^^^^^^^^
+TypeError: add_document() missing 1 required positional argument: 'url'
+2024-09-14 11:21:23,309 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:21:28,544 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:22:05,369 INFO: Search request received for user test_user_2 [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:27]
+2024-09-14 11:22:05,478 ERROR: An error occurred during search: add_document() missing 1 required positional argument: 'url' [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:51]
+Traceback (most recent call last):
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py", line 37, in search
+    results = search_documents(query, top_k, threshold)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/services/search_service.py", line 10, in search_documents
+    query_vector = add_document(query)
+                   ^^^^^^^^^^^^^^^^^^^
+TypeError: add_document() missing 1 required positional argument: 'url'
+2024-09-14 11:25:00,682 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:25:25,745 INFO: Search request received for user test_user_2 [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:27]
+2024-09-14 11:25:52,183 INFO: Search completed for user test_user_2. Inference time: 25.0937 seconds [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:47]
+2024-09-14 11:26:59,688 INFO: Health check endpoint accessed [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:10]
+2024-09-14 11:28:45,481 INFO: Search request received for user test_user_1 [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:27]
+2024-09-14 11:28:45,667 INFO: Search completed for user test_user_1. Inference time: 0.0577 seconds [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:47]
+2024-09-14 11:31:10,220 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:31:36,592 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:44:15,430 INFO: Document Retrieval startup [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/main.py:24]
+2024-09-14 11:53:41,140 INFO: Health check endpoint accessed [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:10]
+2024-09-14 11:58:53,595 INFO: Search request received for user test_user_1 [in /Users/vivek/Library/CloudStorage/OneDrive-vit.ac.in/Placements/Submissions/Trademarkia/document-retrieval-system/app/api/routes.py:27]
