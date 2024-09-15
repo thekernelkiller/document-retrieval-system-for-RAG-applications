@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from app.config import Config
 import time
+import logging
 
 client = MongoClient(Config.MONGO_URI)
 db = client['Trademarkia-Document-Retrieval']
@@ -20,6 +21,30 @@ class Document:
     @staticmethod
     def find_one(query):
         return Document.collection.find_one(query)
+
+    @staticmethod
+    def create_search_index():
+        try:
+            Document.collection.create_index([
+                ("embedding", "vectorSearch")  # This may not be needed if embeddings are only in ChromaDB
+            ], {
+                "name": "vector_index",
+                "numDimensions": 384  # Adjust this based on your chosen model
+            })
+            logging.info("Vector search index created successfully")
+        except Exception as e:
+            logging.error(f"Error creating vector search index: {str(e)}")
+
+# def normalize_embedding(embedding, target_dim=768):
+#     current_dim = len(embedding)
+    
+#     if current_dim < target_dim:
+#         # Pad with zeros
+#         return embedding + [0] * (target_dim - current_dim)
+#     elif current_dim > target_dim:
+#         # Truncate
+#         return embedding[:target_dim]
+#     return embedding 
 
 class User:
     collection = db.users

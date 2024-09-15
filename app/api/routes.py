@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify, current_app
 from app.services.search_service import search_documents
 from app.models import User
-import time
+import time, logging
+from app.services.document_service import collection
 
 api_bp = Blueprint('api', __name__)
 
@@ -15,41 +16,40 @@ def search():
     try:
         data = request.json
         user_id = data.get('user_id')
-        
-        if not user_id:
-            current_app.logger.warning('Search request received without user_id')
-            return jsonify({"error": "user_id is required"}), 400
-
-        query = data.get('text', '')
+        text = data.get('text')
         top_k = data.get('top_k', 5)
         threshold = data.get('threshold', 0.5)
-        
-        current_app.logger.info(f'Search request received for user {user_id}')
 
-        # Check and update user request count
+        if not user_id or not text:
+            return jsonify({"error": "Missing user_id or text"}), 400
+
+        # Update user request count
         user = User.update_request_count(user_id)
-        
         if user['request_count'] > 5:
-            current_app.logger.warning(f'Rate limit exceeded for user {user_id}')
             return jsonify({"error": "Rate limit exceeded"}), 429
+
+        results = search_documents(text, top_k, threshold)
         
-        start_time = time.time()
-        results = search_documents(query, top_k, threshold)
-        end_time = time.time()
+        logging.info(f"Search results for query '{text}': {results}")
         
-        inference_time = end_time - start_time
-        
-        response = {
-            "results": results,
-            "inference_time": inference_time
+        # Include debug information in the response
+        debug_info = {
+            "total_documents": len(collection.get()['ids']),
+            "query": text,
+            "query_length": len(text.split()),
+            "top_k": top_k,
+            "threshold": threshold,
+            "results_count": len(results)
         }
         
-        current_app.logger.info(f'Search completed for user {user_id}. Inference time: {inference_time:.4f} seconds')
-        return jsonify(response)
+        return jsonify({
+            "results": results,
+            "debug_info": debug_info
+        })
 
     except Exception as e:
-        current_app.logger.error(f'An error occurred during search: {str(e)}', exc_info=True)
-        return jsonify({"error": "An internal server error occurred"}), 500
+        logging.error(f"Error in search endpoint: {str(e)}", exc_info=True)
+        return jsonify({"error": "Internal server error", "details": str(e)}), 500
 
 # Error handlers (same as before)
 @api_bp.errorhandler(404)
