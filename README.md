@@ -1,6 +1,6 @@
-# Trademarkia Document Retrieval System Assignment
+# Document Retrieval System for LLM-RAG Applications Using MongoDB, Redis, Flask and ChromaDB. 
 
-This is a Retrieval Augmented Generation (RAG)-like document retrieval system for LLM applications. I have accomplished all the give tasks and also implemented re-ranking using BM25 algorithm (bonus) for better search indexing.
+This is a Retrieval Augmented Generation (RAG)-like document retrieval system for LLM applications using MongoDB, Redis, Flask, ChromaDB, Sentence Transformers, and other python packages. Minimal LangChain usage (only `langchain_groq` API inference). 
 
 > 1. All packages used are specified in the `requirements.txt` file. 
 > 2. Detailed logs (roff), regarding project activity, can be accessed in `logs/` directory. 
